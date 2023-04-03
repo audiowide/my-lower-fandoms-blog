@@ -1,6 +1,6 @@
 import  express from 'express';
-import { CreateArticle, ShowAllArticles, ShowArticle, UpdateArticle } from './article.controller';
-import { protect } from '../middlewares/auth.middleware';
+import { CreateArticle, DeleteArticle, ShowAllArticles, ShowArticle, UpdateArticle } from './article.controller.js';
+import { protect } from '../middlewares/auth.middleware.js';
 
 
 const router = express.Router();

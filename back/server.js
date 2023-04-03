@@ -1,11 +1,14 @@
 import express from 'express'
+import morgan from 'morgan'
+import dotenv from 'dotenv'
+
 import 'colors'
 import {prisma} from './app/prisma.js'
 
 import AuthRoutes from './app/auth/auth.router.js'
+import ArticleRoutes from './app/article/article.router.js'
+
 import { NotFound, errorHandler } from './app/middlewares/error.middleware.js'
-import morgan from 'morgan'
-import dotenv from 'dotenv'
 
 
 dotenv.config()
@@ -18,6 +21,7 @@ async function main() {
    app.use(express.json())
 
    app.use('/api/auth', AuthRoutes)
+   app.use('/api/articles', ArticleRoutes)
    
    app.use(NotFound)
    app.use(errorHandler)

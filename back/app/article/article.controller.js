@@ -27,18 +27,31 @@ export const ShowAllArticles = asyncHandler(async (req, res) => {
 export const CreateArticle = asyncHandler(async (req, res) => {
    const {title, tag, content} = req.body;
 
-   const article = await prisma.article.create({
-      data: {title, tag, content},
-   });
+   let slug = title.toLowerCase().replace('/').split(' ').join('-').toString()
 
-   if (!article) {
+   const isHaveSlug = await prisma.article.findUnique({
+      where: {slug},
+   })
+
+   if (isHaveSlug) {
       res.status(400);
-      throw new Error('Article not created');
+      throw new Error('Article already exists');
    }
 
-   res.json({
-      'article': article,
-   });
+   res.json(req.user)
+
+   // const article = await prisma.article.create({
+   //    data: {title, slug, tag, content},
+   // });
+
+   // if (!article) {
+   //    res.status(400);
+   //    throw new Error('Article not created');
+   // }
+
+   // res.json({
+   //    'article': article,
+   // });
 })
 
 

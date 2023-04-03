@@ -25,7 +25,7 @@ model User {
 }
 
 model Article {
-  id              Int            @id @default(autoincrement())
+  id              Int            @id @unique @default(autoincrement())
 
   title           String         
   slug            String         @unique
@@ -37,4 +37,4 @@ model Article {
 
   createdAt       DateTime       @default(now()) @map("created_at")
   updatedAt       DateTime       @updatedAt @map("updated_at")
-} 
+}   
