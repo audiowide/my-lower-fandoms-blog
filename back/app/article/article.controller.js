@@ -27,31 +27,38 @@ export const ShowAllArticles = asyncHandler(async (req, res) => {
 export const CreateArticle = asyncHandler(async (req, res) => {
    const {title, tag, content} = req.body;
 
-   let slug = title.toLowerCase().replace('/').split(' ').join('-').toString()
-
-   const isHaveSlug = await prisma.article.findUnique({
-      where: {slug},
+   let slug = title.toLowerCase().split(/:|\s|&|,|%|^/).join('-').toString()
+   
+   const isHaveArticle = await prisma.article.findUnique({
+      where: { 
+         slug: slug
+      },
    })
 
-   if (isHaveSlug) {
+   if (isHaveArticle) {
       res.status(400);
       throw new Error('Article already exists');
-   }
+   }  
 
-   res.json(req.user)
-
-   // const article = await prisma.article.create({
-   //    data: {title, slug, tag, content},
-   // });
-
-   // if (!article) {
-   //    res.status(400);
-   //    throw new Error('Article not created');
-   // }
-
-   // res.json({
-   //    'article': article,
-   // });
+   const article = await prisma.article.create({
+      data: {
+         title: title, 
+         slug: slug, 
+         tag: {
+            connect: {
+               id: tag
+            }
+         }, 
+         content: content,
+         user: {
+            connect: {
+               id: req.user.id
+            }
+         },
+      },
+   })
+   console.log(article);
+   res.json(article);
 })
 
 
