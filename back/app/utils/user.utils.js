@@ -1,10 +1,8 @@
 export const UserSelect = {
    id: true,
-   slug: true,
-   title: true,
-   user:true,
-   tag: true,
-   content: true,
+   name: true,
+   email: true,
    createdAt: true,
    updatedAt: true,
+   articles: true,
 }

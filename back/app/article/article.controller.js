@@ -1,6 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import { prisma } from './../prisma.js';
-import {UserSelect} from './../utils/user.utils.js'
+import {ArticleSelect} from '../utils/article.utils.js'
 
 // @ Show All Article
 // @ GET api/articles/
@@ -11,7 +11,7 @@ export const ShowAllArticles = asyncHandler(async (req, res) => {
       orderBy: {
          updatedAt: req.query?.updatedAt == 'asc'? 'asc': 'desc',
       },
-      select: UserSelect
+      select: ArticleSelect
    });
 
    if (articles.length == 0) {
@@ -82,7 +82,7 @@ export const ShowArticle = asyncHandler(async (req, res) => {
          where: {
             slug: req.params.slug,
          },
-         select: UserSelect
+         select: ArticleSelect
       });
    
       res.json(article);
@@ -103,7 +103,7 @@ export const UpdateArticle = asyncHandler(async (req, res) => {
          where: {
             slug: req.params.slug,
          },
-         select: UserSelect
+         select: ArticleSelect
       })
 
       console.log(article)
@@ -140,7 +140,7 @@ export const DeleteArticle = asyncHandler(async (req, res) => {
          where: {
             slug: req.params.slug,
          },
-         select: UserSelect
+         select: ArticleSelect
       })
 
       if (article.user.slug == req.user.slug) {

@@ -8,6 +8,7 @@ import {prisma} from './app/prisma.js'
 import AuthRoutes from './app/auth/auth.router.js'
 import ArticleRoutes from './app/article/article.router.js'
 import TagRoutes from './app/tags/tags.router.js'
+import UserRoutes from './app/user/user.router.js'
 
 import { NotFound, errorHandler } from './app/middlewares/error.middleware.js'
 
@@ -24,6 +25,7 @@ async function main() {
    app.use('/api/auth', AuthRoutes)
    app.use('/api/articles', ArticleRoutes)
    app.use('/api/tags', TagRoutes)
+   app.use('/api/users', UserRoutes)
    
    app.use(NotFound)
    app.use(errorHandler)
