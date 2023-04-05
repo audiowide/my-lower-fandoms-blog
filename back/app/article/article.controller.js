@@ -1,11 +1,18 @@
 import asyncHandler from 'express-async-handler';
 import { prisma } from './../prisma.js';
+import {UserSelect} from './../utils/user.utils.js'
 
 // @ Show All Article
 // @ GET api/articles/
 // @ public 
 export const ShowAllArticles = asyncHandler(async (req, res) => {
-   const articles = await prisma.article.findMany();
+
+   const articles = await prisma.article.findMany({
+      orderBy: {
+         updatedAt: req.query?.updatedAt == 'asc'? 'asc': 'desc',
+      },
+      select: UserSelect
+   });
 
    if (articles.length == 0) {
       res.json({
@@ -29,16 +36,20 @@ export const CreateArticle = asyncHandler(async (req, res) => {
 
    let slug = title.toLowerCase().split(/:|\s|&|,|%|^/).join('-').toString()
    
-   const isHaveArticle = await prisma.article.findUnique({
-      where: { 
-         slug: slug
-      },
-   })
+   try {
+      const isHaveArticle = await prisma.article.findUnique({
+         where: { 
+            slug: slug
+         },
+      });
 
-   if (isHaveArticle) {
-      res.status(400);
-      throw new Error('Article already exists');
-   }  
+      if (isHaveArticle) {
+         res.status(400);
+         throw new Error('Article already exists');
+      }
+   } catch (error) {
+     console.log(error)
+   }
 
    const article = await prisma.article.create({
       data: {
@@ -66,21 +77,19 @@ export const CreateArticle = asyncHandler(async (req, res) => {
 // @ GET api/articles/:id
 // @ public 
 export const ShowArticle = asyncHandler(async (req, res) => {
-   const article = await prisma.article.findUnique({
-      where: {
-         id: req.params.id,
-      },
-   });
-
-   if (!article) {
+   try {
+      const article = await prisma.article.findUnique({
+         where: {
+            slug: req.params.slug,
+         },
+         select: UserSelect
+      });
+   
+      res.json(article);
+   } catch (error) {
       res.status(404);
       throw new Error('Article not found');
    }
-
-   res.json({
-      'count': article.length,
-      'article': article,
-   });
 });
 
 // @ Update Article
@@ -89,39 +98,62 @@ export const ShowArticle = asyncHandler(async (req, res) => {
 export const UpdateArticle = asyncHandler(async (req, res) => {
    const {title, tag, content} = req.body;
 
-   const article = await prisma.article.update({
-      where: {
-         id: req.params.id,
-      },
-      data: {title, tag, content},
-   })
+   try {
+      let article = await prisma.article.findUnique({
+         where: {
+            slug: req.params.slug,
+         },
+         select: UserSelect
+      })
 
-   if (!article) {
+      console.log(article)
+      if (article.user.id == req.user.id) {
+         article = await prisma.article.update({
+            where: {
+               slug: req.params.slug,
+            },
+            data: {
+               title,
+               content,
+               tag: {
+                  connect: {
+                     id: tag
+                  }
+               },
+            },
+         })
+
+         res.json(article);
+      }
+   } catch (error) {
       res.status(404);
       throw new Error('Article not found');
    }
-
-   res.json({
-      'article': article,
-   });
 })
 
 // @ Delete Article
 // @ DELETE api/articles/:id
 // @ private 
 export const DeleteArticle = asyncHandler(async (req, res) => {
-   const article = await prisma.article.delete({
-      where: {
-         id: req.params.id,
-      },
-   })
+   try {
+      let article = await prisma.article.findUnique({
+         where: {
+            slug: req.params.slug,
+         },
+         select: UserSelect
+      })
 
-   if (!article) {
+      if (article.user.slug == req.user.slug) {
+         await prisma.article.delete({
+            where: {
+               slug: req.params.slug,
+            },
+         })
+
+         res.json({"message": "Article deleted successfully!"});
+      }
+   } catch(error) {
       res.status(404);
       throw new Error('Article not found');
    }
-
-   res.json({
-      'article': article,
-   });
 })

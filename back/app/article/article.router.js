@@ -8,8 +8,8 @@ const router = express.Router();
 router.route('/').get(ShowAllArticles)
 router.route('/').post(protect, CreateArticle)
 
-router.route('/:id').get(ShowArticle)
-router.route('/:id').put(protect, UpdateArticle)
-router.route('/:id').delete(protect, DeleteArticle)
+router.route('/:slug').get(ShowArticle)
+router.route('/:slug').put(protect, UpdateArticle)
+router.route('/:slug').delete(protect, DeleteArticle)
 
 export default router;
