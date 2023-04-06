@@ -1,0 +1,51 @@
+.slider {
+   @apply h-screen flex justify-center items-center flex-col rounded-xl;
+   .slide {
+      @apply w-full h-full flex justify-center items-center flex-col relative delay-200;
+
+      // animation: show;
+      // animation-duration:  4s;
+      // animation-iteration-count: infinite;
+
+      img {
+         @apply w-full h-full object-cover brightness-50 rounded-br-3xl rounded-tr-3xl duration-200 ;
+
+         // animation: show;
+         // animation-duration:  4s;
+         // animation-iteration-count: infinite
+      }
+
+      &__info {
+         @apply w-full h-full absolute flex justify-center items-start flex-col p-4 gap-y-2 ;
+         h3 {
+            @apply  text-4xl font-bold font-sans mb-2;
+         }
+         a {
+            @apply bg-black rounded-2xl p-2 pr-6 pl-6 hover:bg-white hover:text-black cursor-pointer ease-in duration-300;
+         }
+      }
+
+      &__routing {
+         @apply absolute bottom-10;
+         button {
+            @apply mr-2 hover:text-gray-300 ease-in duration-150;
+         }
+         span {
+            @apply mr-2;
+         }
+      }
+   }
+}
+
+
+@keyframes show {
+   0% {
+     opacity: 0;
+   }
+   50% {
+    opacity: 1;
+   }
+   100% {
+     opacity: 0;
+   }
+ }

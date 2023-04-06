@@ -2,3 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+   @apply box-border m-0 p-0;
+}
+body {
+   @apply bg-gray-950 text-yellow-50 text-lg overflow-x-hidden font-mono;
+}
