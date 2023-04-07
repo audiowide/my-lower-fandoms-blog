@@ -1,3 +1,6 @@
 .layout {
-   @apply w-full grid grid-cols-3;
+   @apply w-full grid grid-cols-2;
+   &__content {
+      @apply relative ;
+   }
 }

@@ -1,0 +1,11 @@
+.header {
+   @apply z-50 flex items-center justify-around w-full p-4 ;
+
+   * {
+      @apply font-bold text-2xl hover:text-orange-400 hover:bg-gray-800 rounded-full cursor-pointer ease-in duration-150;
+   }
+
+   &__icon {
+      @apply text-3xl font-bold
+   }
+}  
