@@ -11,7 +11,7 @@ export const ShowAllArticles = asyncHandler(async (req, res) => {
       orderBy: {
          updatedAt: req.query?.updatedAt == 'asc'? 'asc': 'desc',
       },
-      select: ArticleSelect
+      // select: ArticleSelect
    });
 
    if (articles.length == 0) {
@@ -77,7 +77,7 @@ export const CreateArticle = asyncHandler(async (req, res) => {
 // @ GET api/articles/:id
 // @ public 
 export const ShowArticle = asyncHandler(async (req, res) => {
-   try {
+   // try {
       const article = await prisma.article.findUnique({
          where: {
             slug: req.params.slug,
@@ -86,10 +86,10 @@ export const ShowArticle = asyncHandler(async (req, res) => {
       });
    
       res.json(article);
-   } catch (error) {
-      res.status(404);
-      throw new Error('Article not found');
-   }
+   // } catch (error) {
+   //    res.status(404);
+   //    throw new Error('Article not found');
+   // }
 });
 
 // @ Update Article
