@@ -1,11 +1,28 @@
 .header {
-   @apply z-50 flex items-center justify-around w-full p-4 ;
+   @apply z-50 flex items-center justify-between w-full ;
 
-   * {
-      @apply font-bold text-2xl hover:text-orange-400 hover:bg-gray-800 rounded-full cursor-pointer ease-in duration-150;
+   a {
+      @apply font-bold text-2xl  cursor-pointer ease-in duration-150 p-6 hover:text-red-600;
    }
 
    &__icon {
-      @apply text-3xl font-bold
+      @apply text-4xl font-bold  hover:text-red-600 z-20 m-10 cursor-pointer;
+   }  
+   &__menu {
+      @apply flex flex-col top-0 z-10 bg-black rounded-md  h-full fixed w-1/2 justify-center;
+      animation: show 1s;
+
+      a {
+         @apply font-bold text-3xl  hover:bg-red-600 cursor-pointer ease-in duration-150 p-7 pr-10 pl-10 hover:text-black;
+      }
    }
 }  
+
+@keyframes show {
+   0% {
+      opacity: 0;
+   }
+   100% {
+      opacity: 1;
+   }
+}

@@ -32,7 +32,7 @@ export const ShowAllArticles = asyncHandler(async (req, res) => {
 // @ POST api/articles
 // @ private 
 export const CreateArticle = asyncHandler(async (req, res) => {
-   const {title, tag, content} = req.body;
+   const {title, tag, image, content} = req.body;
 
    let slug = title.toLowerCase().split(/:|\s|&|,|%|^/).join('-').toString()
    
@@ -55,6 +55,7 @@ export const CreateArticle = asyncHandler(async (req, res) => {
       data: {
          title: title, 
          slug: slug, 
+         image: image,
          tag: {
             connect: {
                id: tag
@@ -96,7 +97,7 @@ export const ShowArticle = asyncHandler(async (req, res) => {
 // @ PUT api/articles/:id
 // @ private 
 export const UpdateArticle = asyncHandler(async (req, res) => {
-   const {title, tag, content} = req.body;
+   const {title, tag, image, content} = req.body;
 
    try {
       let article = await prisma.article.findUnique({
@@ -115,6 +116,7 @@ export const UpdateArticle = asyncHandler(async (req, res) => {
             data: {
                title,
                content,
+               image,
                tag: {
                   connect: {
                      id: tag

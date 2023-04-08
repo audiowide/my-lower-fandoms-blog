@@ -1,0 +1,17 @@
+.auth {
+   @apply flex justify-center flex-col items-center w-full ;
+   &__form {
+      @apply flex justify-center flex-col items-center max-w-sm w-full p-10 rounded-xl mt-32;
+
+      h1 {
+         @apply font-bold text-3xl mb-2; 
+      }
+
+      p {
+         @apply mt-6;
+         a {
+            @apply font-bold hover:text-red-600 ease-in delay-150 ;
+         }
+      }
+   }
+}

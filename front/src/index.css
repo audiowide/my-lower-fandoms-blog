@@ -8,3 +8,21 @@
 body {
    @apply bg-gray-950 text-yellow-50 text-lg overflow-x-hidden font-mono;
 }
+
+::selection {
+   @apply bg-red-600 text-white
+}
+.icon {
+   @apply text-xl;
+}
+.error {
+   @apply bg-red-600 text-white p-1 rounded-md m-2  ;
+}
+
+/* sc\rollbar */
+::-webkit-scrollbar {
+   @apply bg-transparent w-4
+}
+::-webkit-scrollbar-corner {
+   @apply bg-red-600 rounded-lg
+}

@@ -18,34 +18,41 @@
       &__info {
          @apply w-full h-full absolute flex justify-center items-start flex-col p-4 gap-y-2 ;
          h3 {
-            @apply  text-4xl font-bold font-sans mb-2;
+            @apply  text-5xl font-bold font-sans mb-2;
          }
          a {
-            @apply bg-black rounded-2xl p-2 pr-6 pl-6 hover:bg-white hover:text-black cursor-pointer ease-in duration-300;
+            @apply bg-black rounded-2xl p-2 pr-6 pl-6 hover:bg-red-600 hover:text-black cursor-pointer ease-in duration-300 text-2xl  font-bold;
          }
       }
 
       &__routing {
-         @apply absolute bottom-10;
+         @apply absolute bottom-10 flex justify-center items-center;
          button {
-            @apply mr-2 hover:text-gray-300 ease-in duration-150;
+            @apply mr-4 hover:text-red-600 ease-in duration-200 font-bold text-2xl rounded-full hover:bg-white;
          }
-         span {
-            @apply mr-2;
+         div {
+            @apply mr-2 flex justify-center items-center gap-2;
+            span {
+               @apply relative bg-black block content-[''] h-5 rounded-lg flex justify-start items-center;
+               // flex-col
+               span {
+                  @apply absolute bg-red-600 block content-[''] h-6 rounded-lg z-10;
+               }
+            }
          }
       }
    }
 }
 
+.show {
+   animation: show 2s 
+}
 
 @keyframes show {
    0% {
      opacity: 0;
-   }
-   50% {
-    opacity: 1;
-   }
+   }  
    100% {
-     opacity: 0;
+     opacity: 1;
    }
  }

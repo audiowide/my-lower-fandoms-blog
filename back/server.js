@@ -1,6 +1,8 @@
 import express from 'express'
 import morgan from 'morgan'
 import dotenv from 'dotenv'
+import cors from 'cors'
+import path from 'path'
 
 import 'colors'
 import {prisma} from './app/prisma.js'
@@ -20,7 +22,14 @@ const PORT = process.env.PORT || 8080
 
 async function main() {
    if (process.env.NODE_ENV === 'development') app.use(morgan('dev'))
+
+	app.use(cors())
    app.use(express.json())
+   // app.use(express.urlencoded({extended: true}))
+
+   const __dirname = path.resolve()
+
+	app.use('public/uploads', express.static(path.join(__dirname, 'public/uploads/')))
 
    app.use('/api/auth', AuthRoutes)
    app.use('/api/articles', ArticleRoutes)

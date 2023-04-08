@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { useForm } from 'react-hook-form'
+import Cookies from 'js-cookie'
 
 import styles from './Auth.module.scss'
 import Input from '../../components/UI/Input/Input'
@@ -10,10 +11,9 @@ import { useNavigate } from 'react-router-dom'
 import Layout from '../../components/Layout/Layout'
 import Header from '../../components/Header/Header'
 import { $axios } from '../../api'
-import Cookies from 'js-cookie'
 
 
-const Auth = () => {
+const SignUp = () => {
   const navigate = useNavigate()
 
   const {
@@ -35,17 +35,16 @@ const Auth = () => {
   }, [isAuth])
 
   const onSubmit = async (data) => {
-    await $axios.post('/auth/sign-in', {
+    await $axios.post('/auth/sign-up', {
+      name: data.name,
       email: data.email,
       password: data.password
     }).then((response) => {
-
       Cookies.set('Blitzo&Stolas', response.data.token)
       setIsAuth(true)
       navigate('/')
-
     }).catch((error) => {
-      setRequestError(error?.response?.data?.message)
+      setRequestError(error.response.data.message)
     })
 	}
 
@@ -54,7 +53,17 @@ const Auth = () => {
       <Header/>
       <div className={styles.auth} >
           <form action="" className={styles.auth__form} onSubmit={handleSubmit(onSubmit)}>
-            <h1>Sign In</h1>
+            <h1>Sign Up</h1>
+            <Input 
+              error={errors?.name?.message}
+              name='name'
+              register={register}
+              options={{
+                required: 'Name is required'
+              }}
+              type='text'
+              placeholder = 'Enter your name'
+              />
             <Input 
               error={errors?.email?.message}
               name='email'
@@ -77,11 +86,11 @@ const Auth = () => {
               />
             {requestError? <div className='error'>{requestError}</div>: <></>}
             <Button text='continue' />
-            <p>I don't have an account in this place. <a href='sign-up'>Sign Up</a></p>
+            <p>I have an account in this place. <a href='sign-up'>Sign In</a></p>
         </form>
       </div>
     </Layout>
   )
 }
 
-export default Auth
+export default SignUp

@@ -39,6 +39,7 @@ model Article {
 
   title           String         
   slug            String         @unique
+  image           String
   content         String
 
   user            User?          @relation(fields: [userId], references: [id])
