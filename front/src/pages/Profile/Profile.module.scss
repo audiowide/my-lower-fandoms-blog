@@ -1,3 +1,6 @@
 .profile {
-   @apply flex h-full w-full justify-center items-center flex-col
+   @apply flex w-full justify-center items-center flex-col pr-10 pl-10;
+   h1 {
+      @apply text-3xl font-bold mb-2;
+   }
 }

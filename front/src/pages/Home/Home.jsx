@@ -5,6 +5,8 @@ import Layout from '../../components/Layout/Layout'
 import Header from '../../components/Header/Header'
 import Search from '../../components/Search/Search'
 import styles from './Home.module.scss'
+import Cookies from 'js-cookie'
+import { useAuth } from '../../hooks/useAuth'
 
 
 const Home = () => {

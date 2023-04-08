@@ -1,0 +1,17 @@
+.loader {
+  @apply block content-[''] border-b-4 border-r-4 w-14 h-14 rounded-full m-2 relative;
+  animation: loader__rotate 2s ease-in-out infinite;
+  span {
+    @apply block content-[''] border-t-4 border-l-4 border-red-600 rounded-full absolute w-12 h-12;
+    animation: loader__rotate 2s ease-in-out infinite;
+  }
+}
+
+@keyframes loader__rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -41,6 +41,8 @@ const SignUp = () => {
       password: data.password
     }).then((response) => {
       Cookies.set('Blitzo&Stolas', response.data.token)
+      Cookies.set('Blitzo&StolasId', response.data.user.id)
+
       setIsAuth(true)
       navigate('/')
     }).catch((error) => {

@@ -2,9 +2,11 @@ import React, {useState, useEffect} from 'react'
 import styles from './Slider.module.scss'
 import { sliderData } from './slider-data'
 import {AiOutlineArrowRight, AiOutlineArrowLeft} from 'react-icons/ai'
+import { useAuth } from '../../hooks/useAuth'
 
 
 const Slider = () => {
+   const {isAuth} = useAuth()
    let [sliderCounter, setSliderCounter] = useState(0)
    let [isAnimation, setIsAnimation] = useState(false)
 
@@ -32,7 +34,11 @@ const Slider = () => {
          />
          <div className={styles.slide__info}>
             <h3>{sliderData[sliderCounter].title}</h3>
-            <a href="/sign-up">Sign Up</a>
+            {isAuth ? (
+               <a href="/add-article">Add Article</a>
+            ): (
+               <a href="/sign-up">Sign Up</a>
+            )}
          </div>
          <div className={styles.slide__routing}>
             <button 

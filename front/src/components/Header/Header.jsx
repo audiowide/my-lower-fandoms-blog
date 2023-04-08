@@ -9,11 +9,14 @@ import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const navigate = useNavigate()
-  const {isAuth} = useAuth()
+
+  const {isAuth, userId} = useAuth()
   const [headerIsOpen, setHeaderIsOpen] = useState(false)
 
   const Logout = () => {
     Cookies.remove('Blitzo&Stolas')
+    Cookies.remove('Blitzo&StolasId')
+
     navigate('/auth')
   }
 
@@ -40,7 +43,7 @@ const Header = () => {
         <a href="/tags">Tags</a>
         {isAuth ? (
           <>
-          <a href="/profile">Profile</a>
+          <a href={`/profile/${userId}`}>Profile</a>
           <a onClick={Logout}>Logout</a>
           </>
         ): (
