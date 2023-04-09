@@ -3,8 +3,11 @@
    &__item {
       @apply flex items-start flex-col justify-center w-full p-6 mt-4 max-w-4xl bg-slate-900 rounded-md  absolute top-24  ; 
       h1 {
-         @apply font-bold text-4xl text-center w-full mb-2;
+         @apply font-bold text-4xl  w-full mb-2;
       }    
+      div {
+         @apply flex items-center justify-between w-full mb-2;
+      }
    }
    &__footer {
       @apply flex justify-between w-full items-center mt-1 mb-1;
@@ -21,4 +24,26 @@
    h1 {
       @apply text-4xl font-bold
    }
+   form {
+      animation: show 1s ;
+      @apply flex  items-center justify-start  w-screen z-50 bg-black  fixed top-0 bottom-0 p-10 gap-4 flex-col m-4 h-screen ;
+     div {
+      @apply flex  items-center justify-start p-4  w-full max-w-3xl flex-col  ;
+
+      .profile__change__close {
+         @apply absolute top-3 right-8 z-10 h-10 hover:text-red-600 cursor-pointer text-3xl cursor-pointer;
+      }
+      h2 {
+         @apply text-3xl font-bold mb-2;
+      }
+     }
+   }
 }  
+@keyframes show {
+   0% {
+      opacity: 0;
+   }
+   100% {
+      opacity: 1;
+   }
+}

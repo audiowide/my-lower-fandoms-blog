@@ -16,21 +16,23 @@ const Home = () => {
   const [articles, setArticles] = useState([])
   const [articlesInfo, setArticlesInfo] = useState([])
   const [publicSort, setPublicSort] = useState('desc')
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     getArticles()
-    console.log(publicSort)
   }, [publicSort])
 
   const getArticles = async () => {
+    setLoading(true)
     axios('http://localhost:8080/api/articles',{
       params: {
-        updatedAt: {publicSort}
+        updatedAt: publicSort
       }
     })
     .then(res => {
         setArticles(res.data.articles)
         setArticlesInfo(res.data)
+        setLoading(false)
       }).catch(err => {
         console.error(err)
       })
@@ -50,6 +52,7 @@ const Home = () => {
             <h1>Articles</h1>
             <span>{articlesInfo?.count}</span>
           </div>
+          {loading && (<Loader/>)}
           {articles? (
             <div className={styles.home__articles}>
               {articles.map(article => 

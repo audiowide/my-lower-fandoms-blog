@@ -45,6 +45,7 @@ const SignUp = () => {
 
       setIsAuth(true)
       navigate('/')
+      window.location.reload();
     }).catch((error) => {
       setRequestError(error.response.data.message)
     })

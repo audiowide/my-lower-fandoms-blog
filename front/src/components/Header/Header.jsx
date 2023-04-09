@@ -18,10 +18,12 @@ const Header = () => {
     Cookies.remove('Blitzo&StolasId')
 
     navigate('/auth')
+    window.location.reload();
   }
 
   return (
     <div className={styles.header}>
+      <a href="/">Home</a>
       {headerIsOpen? (
         <MdClose 
           className={styles.header__icon} 
@@ -33,7 +35,6 @@ const Header = () => {
           onClick={() => setHeaderIsOpen(headerIsOpen? false: true)}
         />
       )}
-      <a href="/articles">Articles</a>
       <div 
         className={styles.header__menu}
         style={headerIsOpen? {display: 'flex'} : {display: 'none'}}

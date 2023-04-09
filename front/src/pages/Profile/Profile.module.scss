@@ -6,4 +6,27 @@
    &__articles {
       @apply mb-4 mt-4;
    }
+   &__data {
+      @apply flex  items-start justify-between w-full;
+   }
+
+   &__change {
+      animation: show 1s ;
+      @apply flex  items-center justify-start  w-full z-30 bg-black  fixed top-0 bottom-0 w-1/2 p-10 gap-4 flex-col m-4 h-screen ;
+      .profile__change__close {
+         @apply absolute top-3 right-8 z-10 h-10 hover:text-red-600 cursor-pointer text-3xl cursor-pointer;
+      }
+      h2 {
+         @apply text-3xl font-bold mb-2;
+      }
+   }
+}
+
+@keyframes show {
+   0% {
+      opacity: 0;
+   }
+   100% {
+      opacity: 1;
+   }
 }
