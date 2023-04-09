@@ -1,0 +1,6 @@
+.notfound {
+   @apply flex flex-col justify-center items-center w-full h-96;
+   h1 {
+      @apply font-bold text-4xl;
+   }
+}

@@ -6,6 +6,8 @@ import Header from '../../components/Header/Header'
 import { $axios } from '../../api'
 import { useParams } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
+import Article from '../../components/Article/Article'
+import Loader from '../../components/UI/Loader/Loader'
 
 const Profile = () => {
    const {id} = useParams()
@@ -20,7 +22,6 @@ const Profile = () => {
    const getUserData = async () => {
       $axios.get(`/users/${id}`)
          .then((res) => {
-            console.log(res.data)
             setUerData(res.data)
          })
    }
@@ -32,12 +33,16 @@ const Profile = () => {
          <div className={styles.profile}>
             <h1>{userData.name}</h1>
             {isAuth && <h2>{userData.email}</h2>}
+            
+            {userData.articles? (
+              <div className={styles.profile__articles}>
+               {userData.articles.map((article,index) => 
+                  <Article key={index} article={article} />
+            )}
+              </div>
+          ): (<Loader/>)}
          </div>
-      ): (
-         <div className={styles.profile}>
-            <h1>User Not Found</h1>
-         </div>
-      )}
+      ): (<Loader/>)}
     </Layout>
   )
 }

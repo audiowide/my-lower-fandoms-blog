@@ -9,4 +9,13 @@
          @apply text-3xl ;
       }
    }
+   &__articles {
+      @apply flex flex-col w-full items-center mb-28;
+   }
+   &__public__filter {
+      @apply flex items-center w-full gap-6;
+      button {
+         @apply bg-transparent border-4 pt-1 pb-1 pr-4 pl-4 rounded-lg border-white font-bold hover:text-red-600 hover:border-red-600 delay-200 duration-200 ease-in;
+      }
+   }
 }

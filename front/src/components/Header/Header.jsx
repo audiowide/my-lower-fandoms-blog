@@ -39,11 +39,11 @@ const Header = () => {
         style={headerIsOpen? {display: 'flex'} : {display: 'none'}}
       >
         <a href="/">Home</a>
-        <a href="/articles">Articles</a>
         <a href="/tags">Tags</a>
         {isAuth ? (
           <>
-          <a href={`/profile/${userId}`}>Profile</a>
+          <a href='/articles/add'>Add New Article</a>
+          <a href={`/profile/${userId}`}>Profile #{userId}</a>
           <a onClick={Logout}>Logout</a>
           </>
         ): (

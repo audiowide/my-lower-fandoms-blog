@@ -35,7 +35,7 @@ const Slider = () => {
          <div className={styles.slide__info}>
             <h3>{sliderData[sliderCounter].title}</h3>
             {isAuth ? (
-               <a href="/add-article">Add Article</a>
+               <a href="/articles/add">Add Article</a>
             ): (
                <a href="/sign-up">Sign Up</a>
             )}

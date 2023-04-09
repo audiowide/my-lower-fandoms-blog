@@ -1,5 +1,5 @@
 .slider {
-   @apply h-screen flex justify-center items-center flex-col rounded-xl;
+   @apply h-screen fixed justify-center items-center flex-col rounded-xl w-1/2;
    .slide {
       @apply w-full h-full flex justify-center items-center flex-col relative delay-200;
 

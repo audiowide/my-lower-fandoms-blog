@@ -11,7 +11,7 @@ export const ShowAllArticles = asyncHandler(async (req, res) => {
       orderBy: {
          updatedAt: req.query?.updatedAt == 'asc'? 'asc': 'desc',
       },
-      // select: ArticleSelect
+      select: ArticleSelect
    });
 
    if (articles.length == 0) {
@@ -32,7 +32,7 @@ export const ShowAllArticles = asyncHandler(async (req, res) => {
 // @ POST api/articles
 // @ private 
 export const CreateArticle = asyncHandler(async (req, res) => {
-   const {title, tag, image, content} = req.body;
+   const {title, image, tag, content} = req.body;
 
    let slug = title.toLowerCase().split(/:|\s|&|,|%|^/).join('-').toString()
    
@@ -53,15 +53,14 @@ export const CreateArticle = asyncHandler(async (req, res) => {
 
    const article = await prisma.article.create({
       data: {
-         title: title, 
-         slug: slug, 
-         image: image,
+         title, 
+         slug, 
+         content,
          tag: {
             connect: {
                id: tag
             }
          }, 
-         content: content,
          user: {
             connect: {
                id: req.user.id
@@ -69,7 +68,7 @@ export const CreateArticle = asyncHandler(async (req, res) => {
          },
       },
    })
-   console.log(article);
+
    res.json(article);
 })
 
@@ -78,19 +77,24 @@ export const CreateArticle = asyncHandler(async (req, res) => {
 // @ GET api/articles/:id
 // @ public 
 export const ShowArticle = asyncHandler(async (req, res) => {
-   // try {
+   try {
       const article = await prisma.article.findUnique({
          where: {
             slug: req.params.slug,
          },
          select: ArticleSelect
       });
+
+      if (!article) {
+         res.status(404);
+         throw new Error('Article not found');
+      }
    
       res.json(article);
-   // } catch (error) {
-   //    res.status(404);
-   //    throw new Error('Article not found');
-   // }
+   } catch (error) {
+      res.status(404);
+      throw new Error('Article not found');
+   }
 });
 
 // @ Update Article
@@ -116,7 +120,6 @@ export const UpdateArticle = asyncHandler(async (req, res) => {
             data: {
                title,
                content,
-               image,
                tag: {
                   connect: {
                      id: tag

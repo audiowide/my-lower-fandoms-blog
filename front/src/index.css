@@ -21,8 +21,8 @@ body {
 
 /* sc\rollbar */
 ::-webkit-scrollbar {
-   @apply bg-transparent w-4
+   @apply bg-gray-800 w-3
 }
-::-webkit-scrollbar-corner {
+::-webkit-scrollbar-thumb {
    @apply bg-red-600 rounded-lg
 }

@@ -10,7 +10,6 @@ const Input = ({ register, name, options, error, ...rest}) => {
         {...rest}
       />
       {error && <div className={styles.error}>{error}</div>}
-
     </>
   )
 }

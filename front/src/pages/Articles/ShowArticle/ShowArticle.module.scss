@@ -1,0 +1,24 @@
+.article {
+   @apply flex flex-col items-center justify-center w-full relative p-4 ;
+   &__item {
+      @apply flex items-start flex-col justify-center w-full p-6 mt-4 max-w-4xl bg-slate-900 rounded-md  absolute top-24  ; 
+      h1 {
+         @apply font-bold text-4xl text-center w-full mb-2;
+      }    
+   }
+   &__footer {
+      @apply flex justify-between w-full items-center mt-1 mb-1;
+      a {
+         @apply font-bold text-xl text-gray-300 hover:text-red-600 ease-in delay-200 duration-200;
+      }
+   }
+   p {
+      @apply mb-2;
+   }
+   span {
+      @apply text-gray-400 text-sm;
+   }
+   h1 {
+      @apply text-4xl font-bold
+   }
+}  

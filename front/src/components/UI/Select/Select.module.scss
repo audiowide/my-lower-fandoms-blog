@@ -1,0 +1,6 @@
+.select {
+   @apply mb-4 bg-transparent w-full p-2 mt-2 border-4 outline-none hover:border-red-400 ease-in delay-200 duration-200 focus:border-red-600 hover:text-red-400 focus:text-red-600 rounded-lg;
+   option {
+      @apply bg-black font-bold;
+   }
+}

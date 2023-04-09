@@ -1,0 +1,16 @@
+.create {
+   @apply flex flex-col justify-center items-center p-6;
+
+   form {
+      @apply flex flex-col justify-center items-center w-full;
+      p {
+         @apply mb-4;
+         a {
+            @apply font-bold hover:text-red-600;
+         }
+      }
+   }
+   h1 {
+      @apply font-bold text-3xl mb-4;
+   }
+}

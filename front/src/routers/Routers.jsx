@@ -7,6 +7,9 @@ import SignUp from '../pages/Auth/SignUp'
 import { useAuth } from '../hooks/useAuth'
 import Profile from '../pages/Profile/Profile'
 import Tag from '../pages/Tag/Tag'
+import CreateArticle from '../pages/Articles/CreateArticle/CreateArticle'
+import ShowArticle from '../pages/Articles/ShowArticle/ShowArticle'
+import NotFound from '../pages/NotFound/NotFound'
 
 
 const Routers = () => {
@@ -20,12 +23,17 @@ const Routers = () => {
         <Route path='/auth' element={<Auth/>}/>
         <Route path='/sign-up' element={<SignUp/>}/>
 
+        <Route path='/articles/:slug' element={<ShowArticle/>}/>
+
         {isAuth && (
           <>
             <Route path='/profile/:id' element={<Profile/>}/>
             <Route path='/tags' element={<Tag/>}/>
+            <Route path='/articles/add' element={<CreateArticle/>}/>
           </>
         )}
+
+        <Route path='*' element={<NotFound/>}/>
 
       </Routes>
     </div>

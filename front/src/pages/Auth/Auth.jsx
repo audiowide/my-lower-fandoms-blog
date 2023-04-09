@@ -11,10 +11,12 @@ import Layout from '../../components/Layout/Layout'
 import Header from '../../components/Header/Header'
 import { $axios } from '../../api'
 import Cookies from 'js-cookie'
+import Loader from '../../components/UI/Loader/Loader'
 
 
 const Auth = () => {
   const navigate = useNavigate()
+  const [loading, setLoading] = useState(false)
 
   const {
         register, 
@@ -35,6 +37,7 @@ const Auth = () => {
   }, [isAuth])
 
   const onSubmit = async (data) => {
+    setLoading(true)
     await $axios.post('/auth/sign-in', {
       email: data.email,
       password: data.password
@@ -48,12 +51,14 @@ const Auth = () => {
     }).catch((error) => {
       setRequestError(error?.response?.data?.message)
     })
+    setLoading(false)
 	}
 
   return (
     <Layout >
       <Header/>
       <div className={styles.auth} >
+        { loading && <Loader/> }
           <form action="" className={styles.auth__form} onSubmit={handleSubmit(onSubmit)}>
             <h1>Sign In</h1>
             <Input 
