@@ -1,7 +1,8 @@
 {
   "type": "module",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "dev": "node server.js"
   },
   "dependencies": {
     "@prisma/client": "^4.12.0",

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { $axios } from '../../../api'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 
 import styles from './ShowArticle.module.scss'
@@ -17,15 +17,14 @@ import { useAuth } from '../../../hooks/useAuth'
 
 
 const ShowArticle = () => {
+   const navigate = useNavigate()
    const {slug} = useParams()
    const {isAuth, userId} = useAuth()
    const [showForm, setShowForm] = useState(false)
-   const [loading, setLoading] = useState(false)
    const [tags, setTags] = useState([])
 
    const [article, setArticle] = useState()
    const [error, setError] = useState('')
-
 
    useEffect(() => {
       getArticle()
@@ -57,7 +56,7 @@ const ShowArticle = () => {
    })
 
    const changeArticle = async (data) => {
-      await $axios.put(`/articles/${id}`, {
+      await $axios.put(`/articles/${slug}`, {
          title: data.title,
          tag: +data.tag,
          content: data.content,
@@ -69,6 +68,19 @@ const ShowArticle = () => {
         .catch((err) => {
          setError(err.response.data.message)
         })
+        window.location.reload()
+   }
+
+   const deleteArticle = async () => {
+      await $axios.delete(`/articles/${slug}`)
+        .then((res) => {
+            navigate('/')
+         })
+        .catch((err) => {
+            setError(err.response.data.message)
+         })
+
+         window.location.reload()
    }
 
   return (
@@ -90,7 +102,7 @@ const ShowArticle = () => {
             <span>{article.createdAt}</span>
          </div>
       ): error? ( <h1>{error}</h1>) : (<Loader/>)}
-
+      { isAuth && article?.user?.id == userId ? (
       <form
          className={styles.article__form}
          onSubmit={handleSubmit(changeArticle)}
@@ -98,7 +110,7 @@ const ShowArticle = () => {
       >
          <div>
          <MdClose 
-                  onClick={() => setChangeFormShow(false)} 
+                  onClick={() => setShowForm(false)} 
                   className={styles.profile__change__close}
                />  
                <h2>Change Profile</h2>
@@ -108,7 +120,7 @@ const ShowArticle = () => {
                   name="title"
                   register={register}
                   options={{
-                     required: 'Email is required'
+                     required: 'Title is required'
                   }}   
                   placeholder="Enter your article title"
                   defaultValue={article?.title}
@@ -144,7 +156,11 @@ const ShowArticle = () => {
                {error && <p className={styles.error}>{error}</p>}
                <Button text='save' />
          </div>
+         <div className={styles.predelete}>
+            <Button text='Delete The Article' onClick={deleteArticle} />
+         </div>
       </form>
+       ): (<></>)}
     </div>
   )
 }
